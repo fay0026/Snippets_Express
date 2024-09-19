@@ -1,0 +1,23 @@
+pre {
+    border: solid 1px black;
+}
+
+a {
+    text-decoration-line: none;
+}
+
+.float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 30px;
+    right: 30px;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 4px 4px 4px #333;
+    font-weight: 900;
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
