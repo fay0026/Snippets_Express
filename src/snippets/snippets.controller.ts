@@ -6,7 +6,7 @@ class SnippetsController {
     async list(req: Request, res: Response): Promise<void> {
         const snippets = await snippetsRepository.findAll()
 
-        console.log(snippets);
+        return res.render('snippets/snippets_list', {snippets})
     }
 }
 

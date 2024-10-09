@@ -1,0 +1,33 @@
+<%- include("../partials/header", {title: 'Snippets'}) %>
+
+<% for (var s=0; s<snippets.length; s++) { %>
+
+    <div class="container">
+
+        <div class="card">
+
+            <h1><%= snippets[s].title %></h1>
+
+            <pre>
+
+                <%= snippets[s].code %>
+
+            </pre>
+
+            <%= snippets[s].description %>
+
+            <br>
+
+            <% let date = snippets[s].creationDate %>
+
+            Posté le <%= date.getDate() %>/<%= date.getMonth() %>/<%= date.getFullYear() %> à <%= date.getHours() %>:<%= date.getMinutes() %>:<%= date.getSeconds() %>
+
+        </div>
+
+    </div>
+
+    <br>
+
+<% } %>
+
+<%- include("../partials/footer") %>

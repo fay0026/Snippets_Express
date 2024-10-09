@@ -21,3 +21,8 @@ a {
     align-items: center;
     justify-content: center;
 }
+
+.content {
+    background-color: gray;
+    color: gray;
+}

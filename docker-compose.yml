@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+
+  db:
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - 5432:5432
+    volumes:
+      - db_volume:/var/lib/postgresql/data:rw
+    networks:
+      db_network:
+
+
+  adminer:
+    image: adminer
+    restart: always
+    environment:
+      ADMINER_DRIVER: pgsql
+      ADMINER_SERVER: 'db'
+      ADMINER_USERNAME: ${POSTGRES_USER}
+      ADMINER_PASSWORD: ${POSTGRES_PASSWORD}
+      ADMINER_AUTOLOGIN: 1
+    ports:
+      - 8080:8080
+    networks:
+      db_network:
+
+volumes:
+  db_volume:
+
+networks:
+    db_network:
+      driver: bridge
+
