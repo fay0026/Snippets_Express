@@ -1,10 +1,12 @@
-/*import { NextFunction } from "express";
-import { Request, Response } from "express";*/
+import { Request, Response } from "express";
 import { snippetsRepository } from "./snippets.repository";
 
 class SnippetsController {
-    public list(/*req: Request, res: Response, next: NextFunction*/): void {
-        console.log(snippetsRepository.findAll());
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    async list(req: Request, res: Response): Promise<void> {
+        const snippets = await snippetsRepository.findAll()
+
+        console.log(snippets);
     }
 }
 

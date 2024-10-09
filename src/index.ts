@@ -1,7 +1,6 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import session from 'express-session';
 import router from './snippets/snippets.router';
-//import { snippetsRepository } from './snippets/snippets.repository';
 
 const app = express();
 
@@ -18,6 +17,12 @@ app.use(session({
 }));
 
 app.use('/', router)
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    console.log(`ERREUR : ${err.message}`);
+    res.render('error', { err });
+});
 
 app.listen(port, () => {
     console.log(`Serveur local démarré : http://localhost:${port}`);
