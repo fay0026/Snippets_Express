@@ -14,9 +14,19 @@ datasource db {
 }
 
 model Snippet {
-    id Int @id @default(autoincrement())
-    title String
-    code String
-    description String?
-    creationDate DateTime
+  id           Int       @id @default(autoincrement())
+  title        String
+  code         String
+  description  String?
+  creationDate DateTime
+  language     Language? @relation(fields: [languageId], references: [id])
+  languageId   Int?
+}
+
+model Language {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  htmlClass String    @default("language-none")
+  logo      String?
+  snippets  Snippet[]
 }

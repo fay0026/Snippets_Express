@@ -6,7 +6,8 @@ npm run watch : pour les bugs
 docker compose up : lance docker
 npx prisma studio : lance prisma
 node : run scripts
-npm reset-db : Réinitialise la base de données en créant une nouvelle migration
+npm run reset-db : Réinitialise la base de données en créant une nouvelle migration
+npx prisma migrate dev --name : nommer une nouvelle migration
 
 Penser à ajouter le port 8080 manuellement
 
