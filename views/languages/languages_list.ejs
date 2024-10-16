@@ -1,0 +1,36 @@
+<%- include("../partials/header", {title: 'Languages'}) %>
+
+    <% for (var l=0; l<languages.length; l++) { %>
+
+        <div class="container">
+
+            <% let lang = languages[l] %>
+
+            <div class="card">
+
+                <a class="noDeco" href="/?lang=<%= lang.id %>">
+
+                    <h1><i class="<%= lang.logo %> colored"></i><%= lang.name %></h1>
+
+                    <% if (lang._count.snippets > 1) { %>
+                        <h3><%= lang._count.snippets %> snippets</h3>
+                    <% } else { %>
+                        <h3><%= lang._count.snippets %> snippet</h3>
+                    <% } %>
+                    <br>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <br>
+
+    <% } %>
+
+    <script src="js/prism.js"></script>
+
+</body>
+
+<%- include("../partials/footer") %>

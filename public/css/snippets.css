@@ -1,5 +1,7 @@
 pre {
     border: solid 1px black;
+    text-align: left;
+    line-height: normal;
 }
 
 a {
@@ -25,4 +27,8 @@ a {
 .content {
     background-color: gray;
     color: gray;
+}
+
+.noDeco {
+    text-decoration: none;
 }

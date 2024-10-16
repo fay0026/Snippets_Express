@@ -1,33 +1,37 @@
 <%- include("../partials/header", {title: 'Snippets'}) %>
 
-<% for (var s=0; s<snippets.length; s++) { %>
+    <% for (var s=0; s<snippets.length; s++) { %>
 
-    <div class="container">
+        <div class="container">
 
-        <div class="card">
+            <% let snip = snippets[s] %>
 
-            <h1><%= snippets[s].title %></h1>
+            <div class="card">
 
-            <pre>
+                <h1><i class="<%= snip.language.logo %> colored"></i><%= snip.title %></h1>
 
-                <%= snippets[s].code %>
+                <pre><code class="<%= snip.language.htmlClass %>"><%= snip.code %></code></pre>
 
-            </pre>
+                <%= snip.description %>
 
-            <%= snippets[s].description %>
+                <br>
 
-            <br>
+                <% let date = snip.creationDate %>
 
-            <% let date = snippets[s].creationDate %>
+                Posté le <%= date.getDate() %>/<%= date.getMonth() %>/<%= date.getFullYear() %> à <%= date.getHours() %>:<%= date.getMinutes() %>:<%= date.getSeconds() %>
 
-            Posté le <%= date.getDate() %>/<%= date.getMonth() %>/<%= date.getFullYear() %> à <%= date.getHours() %>:<%= date.getMinutes() %>:<%= date.getSeconds() %>
+                <br>
+
+            </div>
 
         </div>
 
-    </div>
+        <br>
 
-    <br>
+    <% } %>
 
-<% } %>
+    <script src="js/prism.js"></script>
+
+</body>
 
 <%- include("../partials/footer") %>

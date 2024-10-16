@@ -2,10 +2,25 @@ import { Snippet } from "@prisma/client";
 import prisma from "../services/prisma";
 
 class SnippetsRepository {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    async findAll(): Promise<Snippet[]> {
-        const snippets = await prisma.snippet.findMany();
-        return snippets
+    async findAll(languageId: number|null): Promise<Snippet[]> {
+        if (languageId) {
+            const snippets = await prisma.snippet.findMany({
+                include: {
+                    language: true,
+                },
+                where: {
+                    languageId: languageId
+                }
+            });
+            return snippets
+        } else {
+            const snippets = await prisma.snippet.findMany({
+                include: {
+                    language: true,
+                }
+            });
+            return snippets
+        }
     }
 }
 
