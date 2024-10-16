@@ -1,10 +1,10 @@
 <%- include("../partials/header", {title: 'Languages'}) %>
 
-    <% for (var l=0; l<languages.length; l++) { %>
+    <% for (l of languages) { %>
 
         <div class="container">
 
-            <% let lang = languages[l] %>
+            <% let lang = l %>
 
             <div class="card">
 
@@ -28,8 +28,6 @@
         <br>
 
     <% } %>
-
-    <script src="js/prism.js"></script>
 
 </body>
 

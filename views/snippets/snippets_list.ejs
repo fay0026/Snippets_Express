@@ -1,14 +1,16 @@
 <%- include("../partials/header", {title: 'Snippets'}) %>
 
-    <% for (var s=0; s<snippets.length; s++) { %>
+    <% for (s of snippets) { %>
 
         <div class="container">
 
-            <% let snip = snippets[s] %>
+            <% let snip = s %>
 
             <div class="card">
 
                 <h1><i class="<%= snip.language.logo %> colored"></i><%= snip.title %></h1>
+
+                <h2>Author : <%= snip.author.name %></h2>
 
                 <pre><code class="<%= snip.language.htmlClass %>"><%= snip.code %></code></pre>
 

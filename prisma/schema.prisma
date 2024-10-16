@@ -20,7 +20,9 @@ model Snippet {
   description  String?
   creationDate DateTime
   language     Language? @relation(fields: [languageId], references: [id])
+  author       User @relation(fields: [authorId], references: [id])
   languageId   Int?
+  authorId     Int  @default(1)
 }
 
 model Language {
@@ -28,5 +30,12 @@ model Language {
   name      String    @unique
   htmlClass String    @default("language-none")
   logo      String?
+  snippets  Snippet[]
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  hashedPassword      String
   snippets  Snippet[]
 }

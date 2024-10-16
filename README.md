@@ -10,6 +10,7 @@ npm run reset-db : Réinitialise la base de données en créant une nouvelle mig
 npx prisma migrate dev --name : nommer une nouvelle migration
 
 Le port 8080 a été ajouté manuellement
+Penser à installer les variantes @types des modules
 
 Connexion adminer
 

@@ -2,6 +2,8 @@ import express, { Request, Response, NextFunction } from 'express';
 import session from 'express-session';
 import router from './snippets/snippets.router';
 import languagesRouter from './languages/languages.router';
+import authRouter from './auth/auth.router';
+import sessionUser from './auth/auth.middleware';
 
 const app = express();
 
@@ -17,9 +19,17 @@ app.use(session({
     resave: false
 }));
 
-app.use('/', router)
+app.use('/', (req: Request, res: Response, next: NextFunction) => {
+    sessionUser(req, res, next)
+}, router)
 
-app.use('/lang', languagesRouter)
+app.use('/lang', (req: Request, res: Response, next: NextFunction) => {
+    sessionUser(req, res, next)
+}, languagesRouter)
+
+app.use('/auth', (req: Request, res: Response, next: NextFunction) => {
+    sessionUser(req, res, next)
+}, authRouter)
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

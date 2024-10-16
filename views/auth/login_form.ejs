@@ -1,0 +1,15 @@
+<%- include("../partials/header", {title: 'Login Form'}) %>
+
+    <form method="POST" action="/auth/login">
+
+        <input type="text" name="name" placeholder="Login" required>
+
+        <input type="password" name="password" placeholder="Password" required>
+
+        <input type="submit" value="login">
+
+    </form>
+
+</body>
+
+<%- include("../partials/footer") %>

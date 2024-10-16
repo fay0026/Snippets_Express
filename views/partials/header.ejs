@@ -16,6 +16,11 @@
     <div class="nav-item">
         <a class="btn btn-sm btn-outline-secondary" href="/">Snippets</a>
         <a class="btn btn-sm btn-outline-secondary" href="/lang">Languages</a>
+        <% if (! locals.user) { %>
+            <a class="btn btn-sm btn-outline-secondary" href="/auth/login">Login</a>
+        <% } else { %>
+            <a class="btn btn-sm btn-outline-secondary" href="/auth/logout"><%= locals.user.name %>: Logout</a>
+        <% } %>
     </div>
 </nav>
 
