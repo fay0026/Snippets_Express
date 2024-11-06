@@ -19,3 +19,5 @@ db
 mr513
 password
 snippets
+
+to open project on remote : tynopass

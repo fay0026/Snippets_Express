@@ -1,0 +1,29 @@
+<%- include("../partials/header", {title: 'Snippets'}) %>
+
+    <form method="POST">
+        
+        <label type="text" name="title" placeholder="Entrez un titre"></label>
+
+        <select name="lang">
+
+            <% for (l of langs) { %>
+
+                <option value="<%=l.id%>"><%=l.name%></option>
+
+            <% } %>
+
+        </select>
+
+        <label type="text" name="code" placeholder="Insérez votre code"></label>
+
+        <label type="text" name="description" placeholder="Décrivez votre code"></label>
+
+        <input type="submit">Créer</input>
+
+    </form>
+
+    <script src="js/prism.js"></script>
+
+</body>
+
+<%- include("../partials/footer") %>

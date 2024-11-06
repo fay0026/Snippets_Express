@@ -13,4 +13,17 @@ router.get('/',
     expressAsyncHandler(snippetsController.list),
     );
 
+router.get('/new',
+    expressAsyncHandler(snippetsController.newForm)
+)
+
+router.post('/new',
+    query('title').isString().isLength({ min: 5, max: 50 }),
+    query('lang').isInt().custom((value: number) => {
+        return languageValidator(Number(value));
+    }),
+    query('code').isLength({ min: 1, max: 1000 }),
+    query('description').isLength({ min: 0, max: 1000 }),
+)
+
 export default router;
