@@ -3,8 +3,6 @@ import { snippetsRepository } from "./snippets.repository";
 import { languagesRepository } from "../languages/languages.repository";
 import { validationResult } from "express-validator";
 import prisma from "../services/prisma";
-import { isStringLiteralOrJsxExpression } from "typescript";
-import { languageValidator } from "../languages/languages.middleware";
 
 class SnippetsController {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -32,23 +30,26 @@ class SnippetsController {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async newSnippet(req: Request, res: Response, next: NextFunction): Promise<void> {
-        const titleR = req.query.title;
-        const langR = req.query.lang;
-        const codeR = req.query.code;
-        const descriptionR = req.query.description;
-        if (typeof(titleR) == "string" && 
-        typeof(langR) == "number" && await languageValidator(langR) &&
-        typeof(codeR) == "string" && typeof(descriptionR) == "string") {
+        const body = req.body;
+
+        const result = validationResult(req);
+
+        if (! result.isEmpty()) {
+            res.send({ errors: result.array() })
+        } else {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const snippet = await prisma.snippet.create({
                 data: {
-                    title: titleR,
-                    lang: langR,
-                    code: codeR,
-                    description: descriptionR
+                    title: body.title,
+                    languageId: parseInt(body.lang),
+                    code: body.code,
+                    description: body.description,
+                    creationDate: new Date()
                 }
             })
-        } else {
-            throw new Error('Les données transmises ne sont pas adéquates')
+
+            const snippets = await snippetsRepository.find(null)
+            return res.render('snippets/snippets_list', {snippets})
         }
     }
 }

@@ -1,5 +1,5 @@
 import express from 'express';
-import { query } from 'express-validator';
+import { query, body } from 'express-validator';
 import { snippetsController } from './snippets.controller';
 import expressAsyncHandler from 'express-async-handler'
 import { languageValidator } from '../languages/languages.middleware';
@@ -18,12 +18,14 @@ router.get('/new',
 )
 
 router.post('/new',
-    query('title').isString().isLength({ min: 5, max: 50 }),
-    query('lang').isInt().custom((value: number) => {
+    express.urlencoded({ extended: true }),
+    body('title').isString().isLength({ min: 5, max: 50 }),
+    body('lang').isInt().custom((value: number) => {
         return languageValidator(Number(value));
     }),
-    query('code').isLength({ min: 1, max: 1000 }),
-    query('description').isLength({ min: 0, max: 1000 }),
+    body('code').isLength({ min: 1, max: 1000 }),
+    body('description').isLength({ min: 0, max: 1000 }),
+    expressAsyncHandler(snippetsController.newSnippet)
 )
 
 export default router;
