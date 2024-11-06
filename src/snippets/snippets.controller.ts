@@ -54,8 +54,8 @@ class SnippetsController {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async editForm(req: Request, res: Response, next: NextFunction): Promise<void> {
-        const idCurrent = req.params;
-        const currentSnippet = await snippetsRepository.findOne(parseInt(idCurrent.id))
+        const idCurrent = req.params.id;
+        const currentSnippet = await snippetsRepository.findOne(parseInt(idCurrent))
         const langs = await languagesRepository.findAll()
         return res.render('snippets/snippet_form', {langs, currentSnippet})
     }

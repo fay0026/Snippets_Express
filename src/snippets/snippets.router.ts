@@ -3,7 +3,7 @@ import { query, body } from 'express-validator';
 import { snippetsController } from './snippets.controller';
 import expressAsyncHandler from 'express-async-handler'
 import { languageValidator } from '../languages/languages.middleware';
-import { isConnected } from '../auth/auth.middleware';
+import { isAuthorConnected, isConnected } from '../auth/auth.middleware';
 import { snippetValidator } from './snippets.middleware';
 
 const router = express.Router();
@@ -33,12 +33,12 @@ router.post('/new',
 )
 
 router.get('/edit/:id',
-    isConnected,
+    isAuthorConnected,
     expressAsyncHandler(snippetsController.editForm)
 )
 
 router.post('/edit/:id',
-    isConnected,
+    isAuthorConnected,
     express.urlencoded({ extended: true }),
     body('currentId').custom((value: number) => {
         return snippetValidator(Number(value))
