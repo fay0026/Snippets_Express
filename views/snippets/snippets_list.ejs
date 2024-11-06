@@ -1,5 +1,7 @@
 <%- include("../partials/header", {title: 'Snippets'}) %>
 
+
+
     <% for (s of snippets) { %>
 
         <div class="container">
@@ -10,7 +12,11 @@
 
                 <h1><i class="<%= snip.language.logo %> colored"></i><%= snip.title %></h1>
 
-                <h2>Author : <%= snip.author.name %></h2>
+                <h2>Author : <%= snip.author.name %>
+                    <% if (locals.user && locals.user.id == snip.author.id) { %>
+                        <a href="/edit/<%=snip.id%>">EDIT</a>
+                    <% } %>
+                </h2>
 
                 <pre><code class="<%= snip.language.htmlClass %>"><%= snip.code %></code></pre>
 
@@ -20,7 +26,7 @@
 
                 <% let date = snip.creationDate %>
 
-                Posté le <%= date.getDate() %>/<%= date.getMonth() %>/<%= date.getFullYear() %> à <%= date.getHours() %>:<%= date.getMinutes() %>:<%= date.getSeconds() %>
+                Posté le <%= date.getDate() %>/<%= date.getMonth()+1 %>/<%= date.getFullYear() %> à <%= date.toLocaleTimeString('fr-FR') %>
 
                 <br>
 

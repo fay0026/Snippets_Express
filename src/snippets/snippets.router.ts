@@ -4,6 +4,7 @@ import { snippetsController } from './snippets.controller';
 import expressAsyncHandler from 'express-async-handler'
 import { languageValidator } from '../languages/languages.middleware';
 import { isConnected } from '../auth/auth.middleware';
+import { snippetValidator } from './snippets.middleware';
 
 const router = express.Router();
 
@@ -29,6 +30,25 @@ router.post('/new',
     body('code').isLength({ min: 1, max: 1000 }),
     body('description').isLength({ min: 0, max: 1000 }),
     expressAsyncHandler(snippetsController.newSnippet)
+)
+
+router.get('/edit/:id',
+    isConnected,
+    expressAsyncHandler(snippetsController.editForm)
+)
+
+router.post('/edit/:id',
+    isConnected,
+    express.urlencoded({ extended: true }),
+    body('currentId').custom((value: number) => {
+        return snippetValidator(Number(value))
+    }),
+    body('lang').isInt().custom((value: number) => {
+        return languageValidator(Number(value));
+    }),
+    body('code').isLength({ min: 1, max: 1000 }),
+    body('description').isLength({ min: 0, max: 1000 }),
+    expressAsyncHandler(snippetsController.editSnippet)
 )
 
 export default router;

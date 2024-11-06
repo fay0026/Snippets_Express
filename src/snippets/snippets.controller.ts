@@ -7,7 +7,6 @@ import prisma from "../services/prisma";
 class SnippetsController {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async list(req: Request, res: Response, next: NextFunction): Promise<void> {
-        console.log(req.session.user)
         const result = validationResult(req);
         if (result.isEmpty()) {
             if (req.query.lang) {
@@ -45,6 +44,40 @@ class SnippetsController {
                     code: body.code,
                     description: body.description,
                     creationDate: new Date()
+                }
+            })
+
+            const snippets = await snippetsRepository.find(null)
+            return res.render('snippets/snippets_list', {snippets})
+        }
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    async editForm(req: Request, res: Response, next: NextFunction): Promise<void> {
+        const idCurrent = req.params;
+        const currentSnippet = await snippetsRepository.findOne(parseInt(idCurrent.id))
+        const langs = await languagesRepository.findAll()
+        return res.render('snippets/snippet_form', {langs, currentSnippet})
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    async editSnippet(req: Request, res: Response, next: NextFunction): Promise<void> {
+        const body = req.body;
+
+        const result = validationResult(req);
+
+        if (! result.isEmpty()) {
+            res.send({ errors: result.array() })
+        } else {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const snippet = await prisma.snippet.update({
+                where: {
+                    id: parseInt(body.currentId)
+                },
+                data: {
+                    languageId: parseInt(body.lang),
+                    code: body.code,
+                    description: body.description
                 }
             })
 

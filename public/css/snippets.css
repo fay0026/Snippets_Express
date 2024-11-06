@@ -27,8 +27,15 @@ a {
 .content {
     background-color: gray;
     color: gray;
+    width: 100%;
+    height: 100%;
 }
 
 .noDeco {
     text-decoration: none;
+}
+
+.field {
+    height: 300px;
+    width: 300px;
 }

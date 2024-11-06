@@ -24,6 +24,19 @@ class SnippetsRepository {
             return snippets
         }
     }
+
+    async findOne(id: number): Promise<Snippet | null> {
+        const snippet = await prisma.snippet.findFirst({
+            include: {
+                language: true,
+                author: true,
+            },
+            where: {
+                id: id
+            }
+        });
+        return snippet
+    }
 }
 
 export const snippetsRepository = new SnippetsRepository();

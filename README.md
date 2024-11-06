@@ -21,3 +21,7 @@ password
 snippets
 
 to open project on remote : tynopass
+
+Connexion sur le site :
+username : bob
+password : qsdfgh
